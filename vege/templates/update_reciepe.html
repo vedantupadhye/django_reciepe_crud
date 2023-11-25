@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Form </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        button{
+            background : green;
+            width: 72px;
+            height:50px;
+            
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <form  method ="post" enctype = "multipart/form-data">
+        {%csrf_token%}
+        <h1>Update reciepe </h1>
+        <label for="recipeName">Recipe Name:</label>
+        <input type="text" id="recipeName" value = "{{reciepe.reciepe_name}}" name = "reciepe_name" required>
+
+        <label for="recipeDescription">Recipe Description:</label>
+        <textarea id="recipeDescription"  name = "reciepe_description" rows="4" required>{{reciepe.reciepe_description}}</textarea>
+
+        <label for="recipeImage">Recipe Image</label>
+        <input type="file" id="recipeImage" name="reciepe_image"  >
+
+        <button type="submit">Update Reciepe</button>
+    </form>
+
+
+</body>
+</html>

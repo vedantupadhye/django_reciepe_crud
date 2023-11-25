@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Form and Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        .btn{
+            background : green;
+            width: 72px;
+            height:50px;
+            
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+        .update{
+            width:'60px';
+            background:"blue";
+        }
+    </style>
+</head>
+<body>
+    <form  method ="post" enctype = "multipart/form-data">
+        {%csrf_token%}
+        <label for="recipeName">Recipe Name:</label>
+        <input type="text" id="recipeName" name = "reciepe_name" required>
+
+        <label for="recipeDescription">Recipe Description:</label>
+        <textarea id="recipeDescription"  name = "reciepe_description" rows="4" required></textarea>
+
+        <label for="recipeImage">Recipe Image</label>
+        <input type="file" id="recipeImage" name="reciepe_image"  >
+
+        <button class="btn" type="submit">Submit</button>
+    </form>
+
+    <h2>Recipe Table</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Number</th>
+                <th>Recipe Name</th>
+                <th>Recipe Description</th>
+                <th>Recipe Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Add rows dynamically using server-side code -->
+            {% for reciepe in reciepes%}
+            <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{reciepe.reciepe_name}}</td>
+                <td>{{reciepe.reciepe_description}}</td>
+                <td><img  src ='/media/{{reciepe.reciepe_image}}' style = "height : 100px"></td>
+                <td>
+                    <button><a href ="/delete-reciepe/{{reciepe.id}}" class ="delete"> Delete</a></button>
+                    <button class ="update"><a href ="/update-reciepe/{{reciepe.id}}" > update</a></button>
+                </td>
+            </tr>
+           {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>
